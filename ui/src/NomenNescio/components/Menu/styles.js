@@ -13,9 +13,10 @@ export const MenuContainer = styled.div`
   color: ${(props) => getColor(props.colors).background};
   background: ${(props) => getColor(props.colors).text};
   box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
-  padding-top: 70px;
+  padding-top: 15px;
   transition: all 0.2s;
   box-sizing: border-box;
+  z-index: 40;
 `;
 export const MenuOption = styled(Link)`
   text-decoration: none;
@@ -34,4 +35,12 @@ export const MenuOption = styled(Link)`
     background: ${(props) => getColor(props.colors).background};
     color: ${(props) => getColor(props.colors).text};
   }
+`;
+
+export const Close = styled.img`
+  height: 30px;
+  width: 30px;
+  margin-right: 50px;
+  margin-left: 30px;
+  margin-bottom: 30px;
 `;

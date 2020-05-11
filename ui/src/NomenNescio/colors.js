@@ -13,11 +13,10 @@ export const colors = [
 ];
 
 export function getColor(userColorConfig = {}) {
-  console.log("Getting color",userColorConfig);
   let colorPallete = colors[userColorConfig.scheme] || colors[0];
   let theme = userColorConfig.theme || "light";
   return {
-    text: theme === "light" ? colorPallete.dark : colorPallete.light,
-    background: theme === "light" ? colorPallete.light : colorPallete.dark,
+    text: theme === "dark" ? colorPallete.dark : colorPallete.light,
+    background: theme === "dark" ? colorPallete.light : colorPallete.dark,
   };
 }

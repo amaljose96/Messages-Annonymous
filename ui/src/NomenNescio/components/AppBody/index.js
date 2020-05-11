@@ -16,7 +16,7 @@ function AppBody(props) {
     }
   }, [state.user]);
   return (
-    <AppBodyContainer>
+    <AppBodyContainer blur={state.engine.menuOpen}>
       <Switch>
         <Route path={`/login`} component={Login} />
         <Route path={`/wall`} component={Wall} />
