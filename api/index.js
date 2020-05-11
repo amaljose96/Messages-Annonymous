@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const uuid= require("uuid");
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,9 +24,12 @@ var db={
         updated:Date.now()
     }]
 };
-
+var messages={};
 function getData(userId){
     let userRecords=db[userId];
+    if(!userRecords){
+        return {};
+    }
     let userData=convertRecordToData(userRecords);
     return userData;
 }
@@ -118,6 +122,40 @@ app.post(root,(req,res)=>{
     updateData(userId,data);
     console.log("DB Updated ",JSON.stringify(db,null,3))
     let userData = getData(userId);
+    res.send(userData);
+});
+
+function addMessageToUser(message,userId){
+    let userData=getData(userId);
+    if(!userData.messages){
+        userData.messages={};
+    }
+    if(!userData.messages[message.wall]){
+        userData.messages[message.wall]={}
+    }
+    if(!userData.messages[message.wall][message.id]){
+        userData.messages[message.wall][message.id]=message
+    }
+    updateData(userId,userData);
+}
+
+
+app.post(root+"/message",(req,res)=>{
+    let {from,to,content}=req.body;
+    let message={
+        id:uuid.v4(),
+        sender:from,
+        wall:to,
+        time:Date.now(),
+        text:content,
+        senderPseudoName:"",
+        state:"anonymous"
+    }
+    messages[message.id]=message;
+    addMessageToUser(message,from);
+    addMessageToUser(message,to);
+    let userData = getData(from);
+    console.log("DB Updated ",JSON.stringify(db,null,3))
     res.send(userData);
 });
 
