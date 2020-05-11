@@ -3,6 +3,9 @@ import { AppBodyContainer } from "./styles";
 import { Context } from "../../Store";
 import { useHistory, Switch, Route } from "react-router-dom";
 import Login from "../pages/Login";
+import WriteMessage from "../pages/WriteMessage";
+import Wall from "../pages/Wall";
+import Messages from "../pages/Messages";
 
 function AppBody(props) {
   const { state } = React.useContext(Context);
@@ -16,6 +19,9 @@ function AppBody(props) {
     <AppBodyContainer>
       <Switch>
         <Route path={`/login`} component={Login} />
+        <Route path={`/wall`} component={Wall} />
+        <Route path={`/messages`} component={Messages} />
+        <Route path={`/`} component={WriteMessage} />
       </Switch>
     </AppBodyContainer>
   );

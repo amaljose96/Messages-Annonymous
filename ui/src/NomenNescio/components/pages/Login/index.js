@@ -22,6 +22,12 @@ function Login(props) {
   const [FBLogin, setFBLogin] = React.useState(false);
   const { state, dispatch } = React.useContext(Context);
   const history = useHistory();
+  if(state.user.id!=="no-user"){
+    let url = new URL(window.location.href);
+    let searchParams = new URLSearchParams(url.search);
+    let redirectURL = searchParams.get("redirect");
+    window.location.href = redirectURL;
+  }
 
   function setColorConfig(colorConfig) {
     setUserDetails({ ...FBLogin, colorConfig })(dispatch);
