@@ -13,6 +13,7 @@ function getCombinedInitialState(){
 }
 function getCombinedReducer(){
     let combinedReducer=(state,action)=>{
+        console.log("Context API : ",action);
         return {
             ...state,
             [action.segmentName]:storeList[action.segmentName].reducer(state[action.segmentName],action)

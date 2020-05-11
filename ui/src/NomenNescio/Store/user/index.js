@@ -6,8 +6,6 @@ var reducers = {
   },
 };
 
-const initialState = {
-  userId:"no-user"
-};
+const initialState = JSON.parse(window.localStorage.getItem("NN") || false) || {id:"no-user"};
 
 export default createReducer(initialState, reducers);

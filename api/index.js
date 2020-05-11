@@ -97,9 +97,14 @@ function combineOldAndNewRecords(oldRecords,newRecords){
 function updateData(userId,newData){
     let currentRecords=db[userId];
     let newRecords=convertDataToRecords(newData,Date.now());
-    let combinedRecords=combineOldAndNewRecords(currentRecords,newRecords);
-    console.log("Combined : ",JSON.stringify(combinedRecords,null,4))
-    db[userId]=combinedRecords;
+    if(currentRecords){
+        let combinedRecords=combineOldAndNewRecords(currentRecords,newRecords);
+        console.log("Combined : ",JSON.stringify(combinedRecords,null,4))
+        db[userId]=combinedRecords;
+    }
+    else{
+        db[userId]=newRecords;
+    }
 }
 
 app.get(root,(req,res)=>{
@@ -109,8 +114,9 @@ app.get(root,(req,res)=>{
 });
 
 app.post(root,(req,res)=>{
-    let {userId,newData}=req.body;
-    updateData(userId,newData);
+    let {userId,data}=req.body;
+    updateData(userId,data);
+    console.log("DB Updated ",JSON.stringify(db,null,3))
     let userData = getData(userId);
     res.send(userData);
 });

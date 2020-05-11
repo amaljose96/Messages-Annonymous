@@ -6,3 +6,15 @@ export const setProperty=(property,value)=>{
         segmentName:"engine"
     }
 }
+export const openMenu=()=>{
+    return {
+        type:"OPEN_MENU",
+        segmentName:"engine"
+    }
+}
+export const closeMenu=()=>{
+    return {
+        type:"OPEN_MENU",
+        segmentName:"engine"
+    }
+}
