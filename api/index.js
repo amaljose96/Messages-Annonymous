@@ -141,20 +141,15 @@ function addMessageToUser(message,userId){
 
 
 app.post(root+"/message",(req,res)=>{
-    let {from,to,content}=req.body;
-    let message={
-        id:uuid.v4(),
-        sender:from,
-        wall:to,
-        time:Date.now(),
-        text:content,
-        senderPseudoName:"",
-        state:"anonymous"
+    let {message,userId}=req.body;
+    if(message.sender!==userId && message.wall !== userId){
+        console.log("Unauthorised ",userId,message.sender,message.wall)
+        res.sendStatus(401);
+        return;
     }
-    messages[message.id]=message;
-    addMessageToUser(message,from);
-    addMessageToUser(message,to);
-    let userData = getData(from);
+    addMessageToUser(message,message.sender);
+    addMessageToUser(message,message.wall);
+    let userData = getData(userId);
     console.log("DB Updated ",JSON.stringify(db,null,3))
     res.send(userData);
 });

@@ -1,4 +1,4 @@
 export default {
     "one-and-only":"/",
-    "newMessage":"/message"
+    "message":"/message"
 }
