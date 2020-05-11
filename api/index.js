@@ -72,13 +72,15 @@ function combineOldAndNewRecords(oldRecords,newRecords){
     let combinedRecords=[];
     newRecords.forEach(newRecord=>{
         let oldRecord=oldRecords.find(oldRecord=>newRecord.key===oldRecord.key);
-        console.log("Comparing ",JSON.stringify(oldRecord,null,2),JSON.stringify(newRecord,null,2));
         if(!oldRecord){
+            console.log("Found new record : ",newRecord.key,newRecord);
             combinedRecords.push(newRecord);
         }
         else if(Array.isArray(oldRecord.value)){
             let isChanged = oldRecord.value.length!== newRecord.value.length;
-            console.log("Key : ",oldRecord.key," has changed? ",isChanged)
+            if(isChanged){
+                console.log("Change in object: ",newRecord.key,oldRecord.value.length,"=>",newRecord.value.length);
+            }
             combinedRecords.push({
                 key:oldRecord.key,
                 value:combineOldAndNewRecords(oldRecord.value,newRecord.value),
@@ -87,7 +89,9 @@ function combineOldAndNewRecords(oldRecords,newRecords){
         }
         else{
             let isChanged = oldRecord.value !== newRecord.value;
-            console.log("Key : ",oldRecord.key," has changed? ",isChanged , oldRecord.value,newRecord.value)
+            if(isChanged){
+                console.log("Change in value: ",newRecord.key,oldRecord.value,"=>",newRecord.value);
+            }
             combinedRecords.push({
                 key:oldRecord.key,
                 value:newRecord.value,

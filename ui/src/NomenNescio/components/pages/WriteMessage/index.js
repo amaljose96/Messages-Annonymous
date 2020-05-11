@@ -27,7 +27,7 @@ function WriteMessage() {
   }, []);
 
   function submitMessage() {
-    submitMessageService(state.user.id, refer, messageContent).then(
+    submitMessageService(state.user.id, refer, messageContent,(state.user.colorConfig || {}).scheme || 0).then(
       (response) => {
         setUserDetails(response)(dispatch);
         history.push("/wall?user="+refer);

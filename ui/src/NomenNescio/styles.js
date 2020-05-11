@@ -9,4 +9,5 @@ export const NomenNescioContainer=styled.div`
     height:100vh;
     width:100vw;
     transition: all 0.2s;
+    overflow-y:scroll;
 `;
